@@ -1,6 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Muqsit/Statscraft
 branches:
 - master
+- 3.0.0
 projects:
   Statscraft:
     path: ""
