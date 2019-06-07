@@ -15,7 +15,7 @@ class WorldsListUpdate extends StatUpdate{
 	public function __construct(array $worlds){
 		$list = [];
 		foreach($worlds as $world){
-			$list[] = StatscraftWorldObject::fromWorld($world);
+			$list[] = StatscraftWorldObject::fromLevel($world);
 		}
 
 		$this->worlds = $list;

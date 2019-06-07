@@ -37,6 +37,7 @@ class StatscraftCommand extends PluginCommand{
 
 						$this->getPlugin()->setSecret($args[1]);
 						$this->getPlugin()->getConfig()->set("secret", $args[1]);
+						$this->getPlugin()->getConfig()->save();
 						$sender->sendMessage(TextFormat::GREEN . $result);
 						$sender->sendMessage(TextFormat::GREEN . "Statscraft server has been set!");
 						return;
@@ -45,6 +46,7 @@ class StatscraftCommand extends PluginCommand{
 				case "unverify":
 					$this->getPlugin()->setSecret(null);
 					$this->getPlugin()->getConfig()->set("secret", "");
+					$this->getPlugin()->getConfig()->save();
 					$sender->sendMessage(TextFormat::GREEN . "Statscraft server has been unverified!");
 					return;
 			}

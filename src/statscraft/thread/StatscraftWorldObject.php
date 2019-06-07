@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace statscraft\thread;
 
-use pocketmine\world\World;
+use pocketmine\level\Level;
 
 class StatscraftWorldObject implements \JsonSerializable{
 
-	public static function fromWorld(World $world) : StatscraftWorldObject{
+	public static function fromLevel(Level $level) : StatscraftWorldObject{
 		return new StatscraftWorldObject(
-			$world->getFolderName(),
-			count($world->getChunks()),
-			count($world->getEntities())
+			$level->getFolderName(),
+			count($level->getChunks()),
+			count($level->getEntities())
 		);
 	}
 

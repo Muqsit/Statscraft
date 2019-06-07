@@ -14,7 +14,7 @@ class StatscraftPlayer implements \JsonSerializable{
 		return new StatscraftPlayer(
 			$player->getUniqueId(),
 			$player->getName(),
-			$player->getNetworkSession()->getIp()
+			$player->getAddress()
 		);
 	}
 

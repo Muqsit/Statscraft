@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace statscraft;
 
+use pocketmine\event\level\LevelLoadEvent;
+use pocketmine\event\level\LevelUnloadEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\plugin\PluginEnableEvent;
-use pocketmine\event\world\WorldLoadEvent;
-use pocketmine\event\world\WorldUnloadEvent;
 use pocketmine\Server;
 
 use statscraft\thread\updates\PlayerJoinUpdate;
@@ -39,7 +39,7 @@ class StatscraftListener implements Listener{
 	}
 
 	public function updateWorldsList() : void{
-		(new WorldsListUpdate(Server::getInstance()->getWorldManager()->getWorlds()))->push();
+		(new WorldsListUpdate(Server::getInstance()->getLevels()))->push();
 	}
 
 	/**
@@ -67,18 +67,18 @@ class StatscraftListener implements Listener{
 	}
 
 	/**
-	 * @param WorldLoadEvent $event
+	 * @param LevelLoadEvent $event
 	 * @priority MONITOR
 	 */
-	public function onWorldLoad(WorldLoadEvent $event) : void{
+	public function onLevelLoad(LevelLoadEvent $event) : void{
 		$this->updateWorldsList();
 	}
 
 	/**
-	 * @param WorldUnloadEvent $event
+	 * @param LevelUnloadEvent $event
 	 * @priority MONITOR
 	 */
-	public function onWorldUnload(WorldUnloadEvent $event) : void{
+	public function onLevelUnload(LevelUnloadEvent $event) : void{
 		$this->updateWorldsList();
 	}
 }
