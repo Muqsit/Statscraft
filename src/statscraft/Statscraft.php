@@ -27,7 +27,9 @@ class Statscraft extends PluginBase{
 			$this->setSecret($secret);
 		}
 
-		$this->getServer()->getCommandMap()->register($this->getName(), new StatscraftCommand($this));
+		if(!$this->getConfig()->get("disable-command")){
+			$this->getServer()->getCommandMap()->register($this->getName(), new StatscraftCommand($this));
+		}
 	}
 
 	public function onDisable() : void{

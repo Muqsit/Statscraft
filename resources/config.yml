@@ -1,3 +1,4 @@
 ---
 secret: ""
+disable-command: false
 ...
