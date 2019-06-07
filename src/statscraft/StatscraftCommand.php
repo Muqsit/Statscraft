@@ -29,11 +29,14 @@ class StatscraftCommand extends PluginCommand{
 				case "verify":
 					if(isset($args[1])){
 						try{
-							$result = (new StatscraftConnector($args[1]))->validate();
+							$connector = new StatscraftConnector($args[1]);
+							$result = $connector->validate();
 						}catch(APIException $e){
 							$sender->sendMessage(TextFormat::RED . "Failed to set secret: " . $e->getMessage());
 							return;
 						}
+
+						$connector->close();
 
 						$this->getPlugin()->setSecret($args[1]);
 						$this->getPlugin()->getConfig()->set("secret", $args[1]);
