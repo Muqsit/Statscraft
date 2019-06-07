@@ -1,0 +1,8 @@
+name: Statscraft
+main: statscraft\Statscraft
+api: 4.0.0
+version: 1.2.0
+
+permissions:
+  statscraft.command:
+    default: op
