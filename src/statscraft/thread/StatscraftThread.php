@@ -58,6 +58,8 @@ class StatscraftThread extends Thread{
 			$statistics->tick();
 			$this->sleep();
 		}
+
+		$connector->close();
 	}
 
 	public function sleep() : void{

@@ -14,11 +14,20 @@ class StatscraftConnector{
 	private $secret;
 
 	/** @var string */
+	private $tempfile;
+
+	/** @var string */
 	private $public_secret;
 
 	public function __construct(string $secret){
 		$this->secret = $secret;
 		$this->validate();
+
+		$this->tempfile = tempnam(sys_get_temp_dir(), "statscraft");
+	}
+
+	public function close() : void{
+		unlink($this->tempfile);
 	}
 
 	public function getSecret() : string{
@@ -56,15 +65,13 @@ class StatscraftConnector{
 
 	public function request(string $query, string $data, bool $compress = false) : array{
 		if($compress){
-			$file = tempnam(sys_get_temp_dir(), "statscraft");
-
 			$zip = new \ZipArchive();
-			$zip->open($file, \ZipArchive::CREATE);
+			$zip->open($this->tempfile, \ZipArchive::CREATE);
 			$zip->addFromString("data.json", $data);
 			$zip->addFromString("privateKey.json", json_encode(["privateKey" => $this->secret]));
 			$zip->close();
 
-			$data = file_get_contents($file);
+			$data = file_get_contents($this->tempfile);
 		}
 
 		$curl = curl_init(self::URL . $query);
